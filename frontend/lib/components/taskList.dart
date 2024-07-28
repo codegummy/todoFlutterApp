@@ -21,8 +21,15 @@ class _TasklistState extends State<Tasklist> {
     allTasks = apiService.fetchTasks();
   }
 
-  void deleteTask() {
-    apiService.deleteTask();
+  void deleteTask(String id) async {
+    try {
+      await apiService.deleteTask(id);
+      setState(() {
+        allTasks = apiService.fetchTasks();
+      });
+    } catch (e) {
+      print("Error $e");
+    }
   }
 
   @override
@@ -43,9 +50,9 @@ class _TasklistState extends State<Tasklist> {
               itemCount: tasks.length,
               itemBuilder: (context, index) {
                 Task task = tasks[index];
-              
+
                 return TodoItem(
-                  onDelete: deleteTask,
+                  onDelete:() => deleteTask(tasks[index].id),
                   text: task.text,
                   dateCreated: task.dateCreated.toString(),
                   isCompleted: task.isCompleted,

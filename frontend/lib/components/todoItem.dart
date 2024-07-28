@@ -6,7 +6,7 @@ class TodoItem extends StatefulWidget {
   String text;
   String dateCreated;
   bool isCompleted;
-  final VoidCallback onDelete;
+ final VoidCallback onDelete;
   TodoItem(
       {super.key,
       required this.text,

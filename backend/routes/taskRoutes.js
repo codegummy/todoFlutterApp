@@ -33,9 +33,13 @@ router.get("/alltasks", async (req,res) => {
   }
 })
 
-router.delete("/alltasks", async(req, res) => {
-  const id = req.params.id
+router.delete("/tasks/:id", async(req, res) => {
+ 
   try{
+    const id = req.params.id
+    await Task.findByIdAndDelete(id)
+    res.status(200).json({ error :"Tak deleted successfully"})
+  
 
   }catch (e){
     res.status(500).json({ error : e.message})

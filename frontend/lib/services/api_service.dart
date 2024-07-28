@@ -5,9 +5,12 @@ import 'package:todo/models/task.dart';
 class ApiService {
   static const String baseUrl = "http://192.168.0.84:3000";
 
-  Future<Task?> deleteTask() async {
+  Future<Task?> deleteTask(String id) async {
     try {
-      final response = await http.get(Uri.parse("$baseUrl/tasks"));
+      final response = await http.delete(Uri.parse("$baseUrl/tasks/$id"));
+      if(response.statusCode != 200){
+        throw Exception("Failed to delte task");
+      }
     } catch (e) {
       print("Error deleting task: $e");
       throw Exception("Error deleting task: $e");
